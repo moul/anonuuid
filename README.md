@@ -102,7 +102,7 @@ $ curl -s https://api.pathwar.net/achievements\?max_results\=2 | anonuuid | jq .
 
 Using go
 
-- `go get github.com/moul/anonuuid`
+- `go get github.com/moul/anonuuid/cmd/anonuuid`
 
 ## License
 

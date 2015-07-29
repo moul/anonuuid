@@ -1,9 +1,7 @@
-package main
+package anonuuid
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"regexp"
 	"strings"
 )
@@ -42,17 +40,5 @@ func (a *AnonUUID) FakeUUID(realUUID string) string {
 func New() *AnonUUID {
 	return &AnonUUID{
 		Cache: make(map[string]string),
-	}
-}
-
-// main is the entrypoint
-func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-
-	anonuuid := New()
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		fmt.Println(anonuuid.Sanitize(line))
 	}
 }
