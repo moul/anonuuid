@@ -31,6 +31,43 @@ TEST=15573749-c89d-41dd-a655-16e79bed52e0`
 	// TEST=00000000-0000-0000-0000-000000000000
 }
 
+func TestAnonUUIDCache(t *testing.T) {
+	anonuuid := New()
+	if len(anonuuid.cache) != 0 {
+		t.Fatalf("anonuuid.cache should be empty")
+	}
+
+	anonuuid.Sanitize("hello")
+	if len(anonuuid.cache) != 0 {
+		t.Fatalf("anonuuid.cache should be empty")
+	}
+
+	anonuuid.Sanitize("hello 15573749-c89d-41dd-a655-16e79bed52e0")
+	if len(anonuuid.cache) != 1 {
+		t.Fatalf("anonuuid.cache should contain 1 entry")
+	}
+
+	anonuuid.Sanitize("hello 15573749-c89d-41dd-a655-16e79bed52e0")
+	if len(anonuuid.cache) != 1 {
+		t.Fatalf("anonuuid.cache should contain 1 entry")
+	}
+
+	anonuuid.Sanitize("hello c245c3cb-3336-4567-ada1-70cb1fe4eefe")
+	if len(anonuuid.cache) != 2 {
+		t.Fatalf("anonuuid.cache should contain 2 entries")
+	}
+
+	anonuuid.Sanitize("hello c245c3cb-3336-4567-ada1-70cb1fe4eefe")
+	if len(anonuuid.cache) != 2 {
+		t.Fatalf("anonuuid.cache should contain 2 entries")
+	}
+
+	anonuuid.Sanitize("hello 15573749-c89d-41dd-a655-16e79bed52e0")
+	if len(anonuuid.cache) != 2 {
+		t.Fatalf("anonuuid.cache should contain 2 entries")
+	}
+}
+
 func ExampleAnonUUIDFakeUUID() {
 	anonuuid := New()
 	fmt.Println(anonuuid.FakeUUID("15573749-c89d-41dd-a655-16e79bed52e0"))
