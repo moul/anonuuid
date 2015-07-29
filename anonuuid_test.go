@@ -12,7 +12,7 @@ func ExampleNew() {
 	// &{map[]}
 }
 
-func ExampleAnonUUIDSanitize() {
+func ExampleAnonUUID_Sanitize() {
 	anonuuid := New()
 	input := `VOLUMES_0_SERVER_ID=15573749-c89d-41dd-a655-16e79bed52e0
 VOLUMES_0_SERVER_NAME=hello
@@ -31,7 +31,7 @@ TEST=15573749-c89d-41dd-a655-16e79bed52e0`
 	// TEST=00000000-0000-0000-0000-000000000000
 }
 
-func TestAnonUUIDCache(t *testing.T) {
+func TestAnonUUID_Cache(t *testing.T) {
 	anonuuid := New()
 	if len(anonuuid.cache) != 0 {
 		t.Fatalf("anonuuid.cache should be empty")
@@ -68,7 +68,7 @@ func TestAnonUUIDCache(t *testing.T) {
 	}
 }
 
-func ExampleAnonUUIDFakeUUID() {
+func ExampleAnonUUID_FakeUUID() {
 	anonuuid := New()
 	fmt.Println(anonuuid.FakeUUID("15573749-c89d-41dd-a655-16e79bed52e0"))
 	fmt.Println(anonuuid.FakeUUID("15573749-c89d-41dd-a655-16e79bed52e0"))
@@ -91,14 +91,14 @@ func BenchmarkNew(b *testing.B) {
 	}
 }
 
-func BenchmarkAnonUUIDFakeUUID(b *testing.B) {
+func BenchmarkAnonUUID_FakeUUID(b *testing.B) {
 	anonuuid := New()
 	for i := 0; i < b.N; i++ {
 		anonuuid.FakeUUID("15573749-c89d-41dd-a655-16e79bed52e0")
 	}
 }
 
-func BenchmarkAnonUUIDSanitize(b *testing.B) {
+func BenchmarkAnonUUID_Sanitize(b *testing.B) {
 	anonuuid := New()
 	for i := 0; i < b.N; i++ {
 		anonuuid.Sanitize("A: 15573749-c89d-41dd-a655-16e79bed52e0, B: c245c3cb-3336-4567-ada1-70cb1fe4eefe, A: 15573749-c89d-41dd-a655-16e79bed52e0")
