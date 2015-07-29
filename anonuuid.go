@@ -12,7 +12,7 @@ var (
 
 // AnonUUID is the main structure, it contains the cache map and helpers
 type AnonUUID struct {
-	Cache map[string]string
+	cache map[string]string
 }
 
 // Sanitize takes a string as input and return sanitized string
@@ -27,18 +27,18 @@ func (a *AnonUUID) Sanitize(input string) string {
 
 // FakeUUID takes a realUUID and return its corresponding fakeUUID
 func (a *AnonUUID) FakeUUID(realUUID string) string {
-	if _, ok := a.Cache[realUUID]; !ok {
-		nextId := len(a.Cache)
+	if _, ok := a.cache[realUUID]; !ok {
+		nextId := len(a.cache)
 		fakeUUID := strings.Repeat(fmt.Sprintf("%x", nextId), 32)[:32]
 		fakeUUID = fakeUUID[:8] + "-" + fakeUUID[8:12] + "-" + fakeUUID[12:16] + "-" + fakeUUID[16:20] + "-" + fakeUUID[20:32]
-		a.Cache[realUUID] = fakeUUID
+		a.cache[realUUID] = fakeUUID
 	}
-	return a.Cache[realUUID]
+	return a.cache[realUUID]
 }
 
 // New returns a prepared AnonUUID structure
 func New() *AnonUUID {
 	return &AnonUUID{
-		Cache: make(map[string]string),
+		cache: make(map[string]string),
 	}
 }
