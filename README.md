@@ -1,6 +1,8 @@
 # anonuuid
 :wrench: Anonymize UUIDs outputs (written in Golang)
 
+[![GoDoc](https://godoc.org/github.com/moul/anonuuid?status.svg)](https://godoc.org/github.com/moul/anonuuid)
+
 **anonuuid** anonymize an input string by replacing all UUIDs by an anonymized
 new one.
 
