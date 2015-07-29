@@ -1,2 +1,48 @@
 # anonuuid
 :wrench: Anonymize UUIDs outputs (written in Golang)
+
+**anonuuid** anonymize an input string by replacing all UUIDs by an anonymized
+new one.
+
+The fake UUIDs are cached, so if anonuuid encounter the same real UUIDs multiple
+times, the translation will be the same.
+
+## Example
+
+Replace all UUIDs and cache the correspondance.
+
+```command
+$ anonuuid git:(master) ✗ cat <<EOF | anonuuid
+VOLUMES_0_SERVER_ID=15573749-c89d-41dd-a655-16e79bed52e0
+VOLUMES_0_SERVER_NAME=hello
+VOLUMES_0_ID=c245c3cb-3336-4567-ada1-70cb1fe4eefe
+VOLUMES_0_SIZE=50000000000
+ORGANIZATION=fe1e54e8-d69d-4f7c-a9f1-42069e03da31
+TEST=15573749-c89d-41dd-a655-16e79bed52e0
+EOF
+VOLUMES_0_SERVER_ID=00000000-0000-0000-0000-000000000000
+VOLUMES_0_SERVER_NAME=hello
+VOLUMES_0_ID=11111111-1111-1111-1111-111111111111
+VOLUMES_0_SIZE=50000000000
+ORGANIZATION=22222222-2222-2222-2222-222222222222
+TEST=00000000-0000-0000-0000-000000000000
+```
+
+---
+
+Inline
+
+```command
+$ echo 'VOLUMES_0_SERVER_ID=15573749-c89d-41dd-a655-16e79bed52e0 VOLUMES_0_SERVER_NAME=bitrig1 VOLUMES_0_ID=c245c3cb-3336-4567-ada1-70cb1fe4eefe VOLUMES_0_SIZE=50000000000 ORGANIZATION=fe1e54e8-d69d-4f7c-a9f1-42069e03da31 TEST=15573749-c89d-41dd-a655-16e79bed52e0' | ./anonuuid
+VOLUMES_0_SERVER_ID=00000000-0000-0000-0000-000000000000 VOLUMES_0_SERVER_NAME=bitrig1 VOLUMES_0_ID=11111111-1111-1111-1111-111111111111 VOLUMES_0_SIZE=50000000000 ORGANIZATION=22222222-2222-2222-2222-222222222222 TEST=00000000-0000-0000-0000-000000000000
+```
+
+## Install
+
+Using go
+
+- `go get github.com/moul/anonuuid`
+
+## License
+
+MIT
