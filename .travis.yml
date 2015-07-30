@@ -11,6 +11,11 @@ go:
 - 1.4
 - tip
 
+before_install:
+- go get -u github.com/axw/gocov/gocov
+- go get -u github.com/mattn/goveralls
+- go get golang.org/x/tools/cmd/cover
+
 install:
 - go get -d -v ./...
 
@@ -18,4 +23,6 @@ script:
 - go build -v ./...
 - if [ "$RUN_TESTS" ];
       then go test -v ./...;
+      go test -coverprofile=profile.out .;
+      goveralls -service=travis-ci -v -coverprofile=profile.out;
   fi
