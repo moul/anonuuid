@@ -82,7 +82,7 @@ func FormatUUID(part string) (string, error) {
 	if len(part) > 32 {
 		part = part[:32]
 	}
-	uuid := part[:8] + "-" + part[8:12] + "-" + part[12:16] + "-" + part[16:20] + "-" + part[20:32]
+	uuid := part[:8] + "-" + part[8:12] + "-1" + part[13:16] + "-" + part[16:20] + "-" + part[20:32]
 
 	matched, err := regexp.MatchString("^"+UUIDRegex+"$", uuid)
 	if err != nil {
