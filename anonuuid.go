@@ -2,6 +2,7 @@ package anonuuid
 
 import (
 	"fmt"
+	"math/rand"
 	"regexp"
 	"strings"
 )
@@ -17,6 +18,9 @@ type AnonUUID struct {
 
 	// Hexspeak flag will generate hexspeak style fake UUIDs
 	Hexspeak bool
+
+	// Random flag will generate random fake UUIDs
+	Random bool
 }
 
 // Sanitize takes a string as input and return sanitized string
@@ -36,6 +40,8 @@ func (a *AnonUUID) FakeUUID(realUUID string) string {
 		var fakeUUID string
 		if a.Hexspeak {
 			fakeUUID = GenerateHexspeakUUID(len(a.cache))
+		} else if a.Random {
+			fakeUUID = GenerateRandomUUID(10)
 		} else {
 			fakeUUID = GenerateLenUUID(len(a.cache))
 		}
@@ -52,6 +58,7 @@ func New() *AnonUUID {
 	return &AnonUUID{
 		cache:    make(map[string]string),
 		Hexspeak: false,
+		Random:   false,
 	}
 }
 
@@ -64,6 +71,17 @@ func FormatUUID(part string) string {
 		part = part[:32]
 	}
 	return part[:8] + "-" + part[8:12] + "-" + part[12:16] + "-" + part[16:20] + "-" + part[20:32]
+}
+
+// GenerateRandomUUID returns an UUID based on random strings
+func GenerateRandomUUID(length int) string {
+	var letters = []rune("abcdef0123456789")
+
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return FormatUUID(string(b))
 }
 
 // GenerateHexspeakUUID returns an UUID formatted string containing hexspeak words

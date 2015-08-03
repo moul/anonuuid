@@ -21,8 +21,12 @@ func main() {
 
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
-			Name:  "hexspeak, d",
+			Name:  "hexspeak",
 			Usage: "Generate hexspeak style fake UUIDs",
+		},
+		cli.BoolFlag{
+			Name:  "random, r",
+			Usage: "Generate random fake UUIDs",
 		},
 	}
 
@@ -35,9 +39,8 @@ func action(c *cli.Context) {
 
 	anonuuid := anonuuid.New()
 
-	if c.Bool("hexspeak") {
-		anonuuid.Hexspeak = true
-	}
+	anonuuid.Hexspeak = c.Bool("hexspeak")
+	anonuuid.Random = c.Bool("random")
 
 	for scanner.Scan() {
 		line := scanner.Text()
