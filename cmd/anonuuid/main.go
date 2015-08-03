@@ -28,6 +28,10 @@ func main() {
 			Name:  "random, r",
 			Usage: "Generate random fake UUIDs",
 		},
+		cli.StringFlag{
+			Name:  "prefix, p",
+			Usage: "Prefix generated UUIDs",
+		},
 	}
 
 	app.Action = action
@@ -41,6 +45,7 @@ func action(c *cli.Context) {
 
 	anonuuid.Hexspeak = c.Bool("hexspeak")
 	anonuuid.Random = c.Bool("random")
+	anonuuid.Prefix = c.String("prefix")
 
 	for scanner.Scan() {
 		line := scanner.Text()

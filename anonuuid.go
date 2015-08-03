@@ -23,6 +23,9 @@ type AnonUUID struct {
 
 	// Random flag will generate random fake UUIDs
 	Random bool
+
+	// Prefix will be the beginning of all the generated UUIDs
+	Prefix string
 }
 
 // Sanitize takes a string as input and return sanitized string
@@ -39,6 +42,13 @@ func (a *AnonUUID) Sanitize(input string) string {
 func (a *AnonUUID) FakeUUID(realUUID string) string {
 	if _, ok := a.cache[realUUID]; !ok {
 
+		if a.Prefix != "" {
+			matched, err := regexp.MatchString("^[a-z0-9]+$", a.Prefix)
+			if err != nil || !matched {
+				a.Prefix = "invalidprefix"
+			}
+		}
+
 		var fakeUUID string
 		var err error
 		if a.Hexspeak {
@@ -52,6 +62,13 @@ func (a *AnonUUID) FakeUUID(realUUID string) string {
 		if err != nil {
 			fmt.Println(err)
 			log.Fatalf("Test")
+		}
+
+		if a.Prefix != "" {
+			fakeUUID, err = PrefixUUID(a.Prefix, fakeUUID)
+			if err != nil {
+				panic(err)
+			}
 		}
 
 		// FIXME: check for duplicates and retry
@@ -72,6 +89,16 @@ func New() *AnonUUID {
 
 func init() {
 	rand.Seed(time.Now().UTC().UnixNano())
+}
+
+// PrefixUUID returns a prefixed UUID
+func PrefixUUID(prefix string, uuid string) (string, error) {
+	uuidLetters := uuid[:8] + uuid[9:13] + uuid[14:18] + uuid[19:23] + uuid[24:36]
+	prefixedUUID, err := FormatUUID(prefix + uuidLetters)
+	if err != nil {
+		return "", err
+	}
+	return prefixedUUID, nil
 }
 
 // FormatUUID takes a string in input and return an UUID formatted string by repeating the string and placing dashes if necessary
