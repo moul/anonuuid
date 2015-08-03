@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"regexp"
 	"strings"
+	"time"
 )
 
 var (
@@ -60,6 +61,10 @@ func New() *AnonUUID {
 		Hexspeak: false,
 		Random:   false,
 	}
+}
+
+func init() {
+	rand.Seed(time.Now().UTC().UnixNano())
 }
 
 // FormatUUID takes a string in input and return an UUID formatted string by repeating the string and placing dashes if necessary
