@@ -2,6 +2,7 @@ package anonuuid
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"regexp"
 	"strings"
@@ -39,12 +40,18 @@ func (a *AnonUUID) FakeUUID(realUUID string) string {
 	if _, ok := a.cache[realUUID]; !ok {
 
 		var fakeUUID string
+		var err error
 		if a.Hexspeak {
-			fakeUUID = GenerateHexspeakUUID(len(a.cache))
+			fakeUUID, err = GenerateHexspeakUUID(len(a.cache))
 		} else if a.Random {
-			fakeUUID = GenerateRandomUUID(10)
+			fakeUUID, err = GenerateRandomUUID(10)
 		} else {
-			fakeUUID = GenerateLenUUID(len(a.cache))
+			fakeUUID, err = GenerateLenUUID(len(a.cache))
+		}
+
+		if err != nil {
+			fmt.Println(err)
+			log.Fatalf("Test")
 		}
 
 		// FIXME: check for duplicates and retry
@@ -68,18 +75,28 @@ func init() {
 }
 
 // FormatUUID takes a string in input and return an UUID formatted string by repeating the string and placing dashes if necessary
-func FormatUUID(part string) string {
+func FormatUUID(part string) (string, error) {
 	if len(part) < 32 {
 		part = strings.Repeat(part, 32)
 	}
 	if len(part) > 32 {
 		part = part[:32]
 	}
-	return part[:8] + "-" + part[8:12] + "-" + part[12:16] + "-" + part[16:20] + "-" + part[20:32]
+	uuid := part[:8] + "-" + part[8:12] + "-" + part[12:16] + "-" + part[16:20] + "-" + part[20:32]
+
+	matched, err := regexp.MatchString("^"+UUIDRegex+"$", uuid)
+	if err != nil {
+		return "", err
+	}
+	if !matched {
+		return "", fmt.Errorf("String '%s' is not a valid UUID", uuid)
+	}
+
+	return uuid, nil
 }
 
 // GenerateRandomUUID returns an UUID based on random strings
-func GenerateRandomUUID(length int) string {
+func GenerateRandomUUID(length int) (string, error) {
 	var letters = []rune("abcdef0123456789")
 
 	b := make([]rune, length)
@@ -90,7 +107,7 @@ func GenerateRandomUUID(length int) string {
 }
 
 // GenerateHexspeakUUID returns an UUID formatted string containing hexspeak words
-func GenerateHexspeakUUID(i int) string {
+func GenerateHexspeakUUID(i int) (string, error) {
 	hexspeaks := []string{
 		"0ff1ce",
 		"31337",
@@ -108,6 +125,6 @@ func GenerateHexspeakUUID(i int) string {
 }
 
 // GenerateLenUUID returns an UUID formatted string based on an index number
-func GenerateLenUUID(i int) string {
+func GenerateLenUUID(i int) (string, error) {
 	return FormatUUID(fmt.Sprintf("%x", i))
 }
