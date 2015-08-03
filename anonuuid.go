@@ -14,6 +14,9 @@ var (
 // AnonUUID is the main structure, it contains the cache map and helpers
 type AnonUUID struct {
 	cache map[string]string
+
+	// Hexspeak flag will generate hexspeak style fake UUIDs
+	Hexspeak bool
 }
 
 // Sanitize takes a string as input and return sanitized string
@@ -29,9 +32,16 @@ func (a *AnonUUID) Sanitize(input string) string {
 // FakeUUID takes a realUUID and return its corresponding fakeUUID
 func (a *AnonUUID) FakeUUID(realUUID string) string {
 	if _, ok := a.cache[realUUID]; !ok {
-		nextID := len(a.cache)
-		fakeUUID := strings.Repeat(fmt.Sprintf("%x", nextID), 32)[:32]
-		fakeUUID = fakeUUID[:8] + "-" + fakeUUID[8:12] + "-" + fakeUUID[12:16] + "-" + fakeUUID[16:20] + "-" + fakeUUID[20:32]
+
+		var fakeUUID string
+		if a.Hexspeak {
+			fakeUUID = GenerateHexspeakUUID(len(a.cache))
+		} else {
+			fakeUUID = GenerateLenUUID(len(a.cache))
+		}
+
+		// FIXME: check for duplicates and retry
+
 		a.cache[realUUID] = fakeUUID
 	}
 	return a.cache[realUUID]
@@ -40,6 +50,41 @@ func (a *AnonUUID) FakeUUID(realUUID string) string {
 // New returns a prepared AnonUUID structure
 func New() *AnonUUID {
 	return &AnonUUID{
-		cache: make(map[string]string),
+		cache:    make(map[string]string),
+		Hexspeak: false,
 	}
+}
+
+// FormatUUID takes a string in input and return an UUID formatted string by repeating the string and placing dashes if necessary
+func FormatUUID(part string) string {
+	if len(part) < 32 {
+		part = strings.Repeat(part, 32)
+	}
+	if len(part) > 32 {
+		part = part[:32]
+	}
+	return part[:8] + "-" + part[8:12] + "-" + part[12:16] + "-" + part[16:20] + "-" + part[20:32]
+}
+
+// GenerateHexspeakUUID returns an UUID formatted string containing hexspeak words
+func GenerateHexspeakUUID(i int) string {
+	hexspeaks := []string{
+		"0ff1ce",
+		"31337",
+		"4b1d",
+		"badc0de",
+		"badcafe",
+		"badf00d",
+		"deadbabe",
+		"deadbeef",
+		"deadc0de",
+		"deadfeed",
+		"fee1bad",
+	}
+	return FormatUUID(hexspeaks[i%len(hexspeaks)])
+}
+
+// GenerateLenUUID returns an UUID formatted string based on an index number
+func GenerateLenUUID(i int) string {
+	return FormatUUID(fmt.Sprintf("%x", i))
 }

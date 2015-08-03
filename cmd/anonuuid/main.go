@@ -19,6 +19,13 @@ func main() {
 	app.Version = "1.0.0-dev"
 	app.Usage = "Anonymize UUIDs outputs"
 
+	app.Flags = []cli.Flag{
+		cli.BoolFlag{
+			Name:  "hexspeak, d",
+			Usage: "Generate hexspeak style fake UUIDs",
+		},
+	}
+
 	app.Action = action
 	app.Run(os.Args)
 }
@@ -27,6 +34,10 @@ func action(c *cli.Context) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	anonuuid := anonuuid.New()
+
+	if c.Bool("hexspeak") {
+		anonuuid.Hexspeak = true
+	}
 
 	for scanner.Scan() {
 		line := scanner.Text()
