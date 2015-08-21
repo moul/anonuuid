@@ -103,6 +103,9 @@ func PrefixUUID(prefix string, uuid string) (string, error) {
 
 // FormatUUID takes a string in input and return an UUID formatted string by repeating the string and placing dashes if necessary
 func FormatUUID(part string) (string, error) {
+	if len(part) < 1 {
+		return "", fmt.Errorf("Empty UUID")
+	}
 	if len(part) < 32 {
 		part = strings.Repeat(part, 32)
 	}
@@ -135,6 +138,9 @@ func GenerateRandomUUID(length int) (string, error) {
 
 // GenerateHexspeakUUID returns an UUID formatted string containing hexspeak words
 func GenerateHexspeakUUID(i int) (string, error) {
+	if i < 0 {
+		i = -i
+	}
 	hexspeaks := []string{
 		"0ff1ce",
 		"31337",
@@ -153,5 +159,8 @@ func GenerateHexspeakUUID(i int) (string, error) {
 
 // GenerateLenUUID returns an UUID formatted string based on an index number
 func GenerateLenUUID(i int) (string, error) {
+	if i < 0 {
+		i = 2147483649 + i
+	}
 	return FormatUUID(fmt.Sprintf("%x", i))
 }
