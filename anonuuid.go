@@ -26,6 +26,9 @@ type AnonUUID struct {
 
 	// Prefix will be the beginning of all the generated UUIDs
 	Prefix string
+
+	// AllowNonUUIDInput tells FakeUUID to accept non UUID input string
+	AllowNonUUIDInput bool
 }
 
 // Sanitize takes a string as input and return sanitized string
@@ -38,9 +41,15 @@ func (a *AnonUUID) Sanitize(input string) string {
 	})
 }
 
-// FakeUUID takes a realUUID and return its corresponding fakeUUID
-func (a *AnonUUID) FakeUUID(realUUID string) string {
-	if _, ok := a.cache[realUUID]; !ok {
+// FakeUUID takes a word (real UUID or standard string) and returns its corresponding (mapped) fakeUUID
+func (a *AnonUUID) FakeUUID(input string) string {
+	if !a.AllowNonUUIDInput {
+		err := IsUUID(input)
+		if err != nil {
+			return "invaliduuid"
+		}
+	}
+	if _, ok := a.cache[input]; !ok {
 
 		if a.Prefix != "" {
 			matched, err := regexp.MatchString("^[a-z0-9]+$", a.Prefix)
@@ -58,10 +67,8 @@ func (a *AnonUUID) FakeUUID(realUUID string) string {
 		} else {
 			fakeUUID, err = GenerateLenUUID(len(a.cache))
 		}
-
 		if err != nil {
-			fmt.Println(err)
-			log.Fatalf("Test")
+			log.Fatalf("Failed to generate an UUID: %v", err)
 		}
 
 		if a.Prefix != "" {
@@ -73,9 +80,9 @@ func (a *AnonUUID) FakeUUID(realUUID string) string {
 
 		// FIXME: check for duplicates and retry
 
-		a.cache[realUUID] = fakeUUID
+		a.cache[input] = fakeUUID
 	}
-	return a.cache[realUUID]
+	return a.cache[input]
 }
 
 // New returns a prepared AnonUUID structure
@@ -101,6 +108,18 @@ func PrefixUUID(prefix string, uuid string) (string, error) {
 	return prefixedUUID, nil
 }
 
+// IsUUID returns nil if the input is an UUID, else it returns an error
+func IsUUID(input string) error {
+	matched, err := regexp.MatchString("^"+UUIDRegex+"$", input)
+	if err != nil {
+		return err
+	}
+	if !matched {
+		return fmt.Errorf("String '%s' is not a valid UUID", input)
+	}
+	return nil
+}
+
 // FormatUUID takes a string in input and return an UUID formatted string by repeating the string and placing dashes if necessary
 func FormatUUID(part string) (string, error) {
 	if len(part) < 1 {
@@ -114,12 +133,9 @@ func FormatUUID(part string) (string, error) {
 	}
 	uuid := part[:8] + "-" + part[8:12] + "-1" + part[13:16] + "-" + part[16:20] + "-" + part[20:32]
 
-	matched, err := regexp.MatchString("^"+UUIDRegex+"$", uuid)
+	err := IsUUID(uuid)
 	if err != nil {
 		return "", err
-	}
-	if !matched {
-		return "", fmt.Errorf("String '%s' is not a valid UUID", uuid)
 	}
 
 	return uuid, nil

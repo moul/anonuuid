@@ -270,9 +270,31 @@ func TestAnonUUID_FakeUUID(t *testing.T) {
 			So(fakeuuid21, ShouldNotEqual, fakeuuid22)
 			So(fakeuuid11, ShouldNotEqual, fakeuuid21)
 		})
-		// FIXME: test options
-		// FIXME: test invalid uuids
-		// FIXME: test incorrect UUID
+		Convey("not a valid UUID", func() {
+			anonuuid := New()
+
+			output := anonuuid.FakeUUID("hello")
+			So(output, ShouldEqual, "invaliduuid")
+
+			output = anonuuid.FakeUUID("hello2")
+			So(output, ShouldEqual, "invaliduuid")
+
+			output = anonuuid.FakeUUID("hello")
+			So(output, ShouldEqual, "invaliduuid")
+		})
+		Convey("not a valid UUID with --allow-non-uuid-input", func() {
+			anonuuid := New()
+			anonuuid.AllowNonUUIDInput = true
+
+			output := anonuuid.FakeUUID("hello")
+			So(output, ShouldEqual, "00000000-0000-1000-0000-000000000000")
+
+			output = anonuuid.FakeUUID("hello2")
+			So(output, ShouldEqual, "11111111-1111-1111-1111-111111111111")
+
+			output = anonuuid.FakeUUID("hello")
+			So(output, ShouldEqual, "00000000-0000-1000-0000-000000000000")
+		})
 		// FIXME: test cases
 		// FIXME: test retry (2 times the same generated uuid)
 	})
