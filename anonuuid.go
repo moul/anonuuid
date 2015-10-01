@@ -176,7 +176,7 @@ func GenerateHexspeakUUID(i int) (string, error) {
 // GenerateLenUUID returns an UUID formatted string based on an index number
 func GenerateLenUUID(i int) (string, error) {
 	if i < 0 {
-		i = 2147483649 + i
+		i = 2<<29 + i
 	}
 	return FormatUUID(fmt.Sprintf("%x", i))
 }
