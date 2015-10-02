@@ -442,12 +442,12 @@ func TestGenerateLenUUID(t *testing.T) {
 		out, err = GenerateLenUUID(-1)
 		So(err, ShouldBeNil)
 		So(len(out), ShouldEqual, 36)
-		So(out, ShouldEqual, "80000000-8000-1000-8000-000080000000")
+		So(out, ShouldEqual, "3fffffff-3fff-1fff-3fff-ffff3fffffff")
 
 		out, err = GenerateLenUUID(-2)
 		So(err, ShouldBeNil)
 		So(len(out), ShouldEqual, 36)
-		So(out, ShouldEqual, "7fffffff-7fff-1fff-7fff-ffff7fffffff")
+		So(out, ShouldEqual, "3ffffffe-3fff-1ffe-3fff-fffe3ffffffe")
 	})
 }
 
