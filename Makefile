@@ -1,3 +1,7 @@
+.PHONY: build
+build:
+	go build -o anonuuid ./cmd/anonuuid/main.go
+
 .PHONY: convey
 convey:
 	go get github.com/smartystreets/goconvey
