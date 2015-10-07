@@ -6,8 +6,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/codegangsta/cli"
 	"github.com/moul/anonuuid"
+	"github.com/moul/anonuuid/vendor/github.com/codegangsta/cli"
 )
 
 // main is the entrypoint
