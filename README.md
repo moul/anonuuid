@@ -135,6 +135,27 @@ Using go
 
 - `go get github.com/moul/anonuuid/...`
 
+## Changelog
+
+### master (unreleased)
+
+* Using **party** to stabilize vendor package versions ([#8](https://github.com/moul/anonuuid/issues/8))
+* Add homebrew package ([#6](https://github.com/moul/anonuuid/issues/6))
+
+[full commits list](https://github.com/moul/anonuuid/compare/v1.0.0...master)
+
+### [v1.0.0](https://github.com/moul/anonuuid/releases/tag/v1.0.0) (2015-10-07)
+
+**Initial release**
+
+#### Features
+
+* Support of `--hexspeak` option
+* Support of `--random` option
+* Support of `--prefix` option
+* Anonymize input stream
+* Anonymize files
+
 ## License
 
 MIT
