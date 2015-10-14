@@ -1,4 +1,4 @@
-# anonuuid
+# AnonUUID
 
 [![Build Status](https://travis-ci.org/moul/anonuuid.svg)](https://travis-ci.org/moul/anonuuid)
 [![GoDoc](https://godoc.org/github.com/moul/anonuuid?status.svg)](https://godoc.org/github.com/moul/anonuuid)
@@ -6,10 +6,12 @@
 
 :wrench: Anonymize UUIDs outputs (written in Golang)
 
+![AnonUUID Logo](https://raw.githubusercontent.com/moul/anonuuid/master/assets/anonuuid.png)
+
 **anonuuid** anonymize an input string by replacing all UUIDs by an anonymized
 new one.
 
-The fake UUIDs are cached, so if anonuuid encounter the same real UUIDs multiple
+The fake UUIDs are cached, so if AnonUUID encounter the same real UUIDs multiple
 times, the translation will be the same.
 
 ## Usage
