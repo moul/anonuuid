@@ -28,9 +28,21 @@ func main() {
 			Name:  "random, r",
 			Usage: "Generate random fake UUIDs",
 		},
+		cli.BoolFlag{
+			Name:  "keep-beginning",
+			Usage: "Keep first part of the UUID unchanged",
+		},
+		cli.BoolFlag{
+			Name:  "keep-end",
+			Usage: "Keep last part of the UUID unchanged",
+		},
 		cli.StringFlag{
 			Name:  "prefix, p",
 			Usage: "Prefix generated UUIDs",
+		},
+		cli.StringFlag{
+			Name:  "suffix",
+			Usage: "Suffix generated UUIDs",
 		},
 	}
 
@@ -46,6 +58,9 @@ func action(c *cli.Context) {
 	anonuuid.Hexspeak = c.Bool("hexspeak")
 	anonuuid.Random = c.Bool("random")
 	anonuuid.Prefix = c.String("prefix")
+	anonuuid.Suffix = c.String("suffix")
+	anonuuid.KeepBeginning = c.Bool("keep-beginning")
+	anonuuid.KeepEnd = c.Bool("keep-end")
 
 	for scanner.Scan() {
 		line := scanner.Text()
