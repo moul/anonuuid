@@ -27,8 +27,17 @@ type AnonUUID struct {
 	// Prefix will be the beginning of all the generated UUIDs
 	Prefix string
 
+	// Suffix will be the end of all the generated UUIDs
+	Suffix string
+
 	// AllowNonUUIDInput tells FakeUUID to accept non UUID input string
 	AllowNonUUIDInput bool
+
+	// KeepBeginning tells FakeUUID to let the beginning of the UUID as it is
+	KeepBeginning bool
+
+	// KeepEnd tells FakeUUID to let the last part of the UUID as it is
+	KeepEnd bool
 }
 
 // Sanitize takes a string as input and return sanitized string
@@ -51,10 +60,25 @@ func (a *AnonUUID) FakeUUID(input string) string {
 	}
 	if _, ok := a.cache[input]; !ok {
 
+		if a.KeepBeginning {
+			a.Prefix = input[:8]
+		}
+
+		if a.KeepEnd {
+			a.Suffix = input[36-12:]
+		}
+
 		if a.Prefix != "" {
 			matched, err := regexp.MatchString("^[a-z0-9]+$", a.Prefix)
 			if err != nil || !matched {
 				a.Prefix = "invalidprefix"
+			}
+		}
+
+		if a.Suffix != "" {
+			matched, err := regexp.MatchString("^[a-z0-9]+$", a.Suffix)
+			if err != nil || !matched {
+				a.Suffix = "invalsuffix"
 			}
 		}
 
@@ -73,6 +97,13 @@ func (a *AnonUUID) FakeUUID(input string) string {
 
 		if a.Prefix != "" {
 			fakeUUID, err = PrefixUUID(a.Prefix, fakeUUID)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		if a.Suffix != "" {
+			fakeUUID, err = SuffixUUID(a.Suffix, fakeUUID)
 			if err != nil {
 				panic(err)
 			}
@@ -106,6 +137,17 @@ func PrefixUUID(prefix string, uuid string) (string, error) {
 		return "", err
 	}
 	return prefixedUUID, nil
+}
+
+// SuffixUUID returns a suffixed UUID
+func SuffixUUID(suffix string, uuid string) (string, error) {
+	uuidLetters := uuid[:8] + uuid[9:13] + uuid[14:18] + uuid[19:23] + uuid[24:36]
+	uuidLetters = uuidLetters[:32-len(suffix)] + suffix
+	suffixedUUID, err := FormatUUID(uuidLetters)
+	if err != nil {
+		return "", err
+	}
+	return suffixedUUID, nil
 }
 
 // IsUUID returns nil if the input is an UUID, else it returns an error

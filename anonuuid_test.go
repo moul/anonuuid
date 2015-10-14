@@ -228,6 +228,211 @@ func TestAnonUUID_FakeUUID(t *testing.T) {
 			So(fakeuuid1, ShouldEqual, expected1)
 			So(fakeuuid3, ShouldEqual, expected2)
 		})
+		Convey("--suffix=hello", func() {
+			anonuuid := New()
+
+			anonuuid.Suffix = "hello"
+
+			expected1 := "00000000-0000-1000-0000-0000000hello"
+			expected2 := "11111111-1111-1111-1111-1111111hello"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--suffix=helloworldhello", func() {
+			anonuuid := New()
+
+			anonuuid.Suffix = "helloworldhello"
+
+			expected1 := "00000000-0000-1000-0hel-loworldhello"
+			expected2 := "11111111-1111-1111-1hel-loworldhello"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--suffix=@@@", func() {
+			anonuuid := New()
+
+			anonuuid.Suffix = "@@@"
+
+			expected1 := "00000000-0000-1000-0000-0invalsuffix"
+			expected2 := "11111111-1111-1111-1111-1invalsuffix"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--prefix=hello --suffix=hello", func() {
+			anonuuid := New()
+
+			anonuuid.Prefix = "hello"
+			anonuuid.Suffix = "hello"
+
+			expected1 := "hello000-0000-1000-0100-0000000hello"
+			// FIXME: why this                ^ ?
+			expected2 := "hello111-1111-1111-1111-1111111hello"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--prefix=helloworldhello --suffix=helloworldhello", func() {
+			anonuuid := New()
+
+			anonuuid.Prefix = "helloworldhello"
+			anonuuid.Suffix = "helloworldhello"
+
+			expected1 := "hellowor-ldhe-1lo0-0hel-loworldhello"
+			// FIXME: should not do this :)
+			expected2 := "hellowor-ldhe-1lo1-1hel-loworldhello"
+			// FIXME: should not do this :)
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--prefix=helloworldhello --suffix=@@@", func() {
+			anonuuid := New()
+
+			anonuuid.Prefix = "@@@"
+			anonuuid.Suffix = "@@@"
+
+			expected1 := "invalidp-refi-1000-0000-0invalsuffix"
+			expected2 := "invalidp-refi-1111-1111-1invalsuffix"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--keep-beginning", func() {
+			anonuuid := New()
+
+			anonuuid.KeepBeginning = true
+
+			expected1 := "15573749-0000-1000-0000-100000000000"
+			expected2 := "c245c3cb-1111-1111-1111-111111111111"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--keep-end", func() {
+			anonuuid := New()
+
+			anonuuid.KeepEnd = true
+
+			expected1 := "00000000-0000-1000-0000-16e79bed52e0"
+			expected2 := "11111111-1111-1111-1111-70cb1fe4eefe"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
+		Convey("--keep-beginning --keep-end", func() {
+			anonuuid := New()
+
+			anonuuid.KeepBeginning = true
+			anonuuid.KeepEnd = true
+
+			expected1 := "15573749-0000-1000-0000-16e79bed52e0"
+			expected2 := "c245c3cb-1111-1111-1111-70cb1fe4eefe"
+
+			fakeuuid1 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid2 := anonuuid.FakeUUID(realuuid1)
+			fakeuuid3 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid4 := anonuuid.FakeUUID(realuuid2)
+			fakeuuid5 := anonuuid.FakeUUID(realuuid1)
+
+			So(len(anonuuid.cache), ShouldEqual, 2)
+			So(fakeuuid1, ShouldEqual, fakeuuid2)
+			So(fakeuuid1, ShouldEqual, fakeuuid5)
+			So(fakeuuid3, ShouldEqual, fakeuuid4)
+			So(fakeuuid2, ShouldNotEqual, fakeuuid3)
+			So(fakeuuid1, ShouldEqual, expected1)
+			So(fakeuuid3, ShouldEqual, expected2)
+		})
 		Convey("--hexspeak", func() {
 			anonuuid := New()
 
