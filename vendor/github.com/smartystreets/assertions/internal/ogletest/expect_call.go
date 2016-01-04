@@ -16,7 +16,7 @@
 package ogletest
 
 import (
-	"github.com/moul/anonuuid/vendor/github.com/smartystreets/assertions/internal/oglemock"
+	"github.com/smartystreets/assertions/internal/oglemock"
 	"runtime"
 )
 
