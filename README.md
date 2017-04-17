@@ -145,6 +145,7 @@ Using go
 
 ### master (unreleased)
 
+* Switch from `Godep` to `Glide`
 * Add mutex to protect the cache field ([@QuentinPerez](https://github.com/QuentinPerez))
 * Switch from `Party` to `Godep`
 * Support of `--suffix=xxx`, `--keep-beginning` and `--keep-end` options ([#4](https://github.com/moul/anonuuid/issues/4))
