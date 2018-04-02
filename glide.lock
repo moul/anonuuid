@@ -1,8 +1,8 @@
 hash: 84357984099f76a36886674db0520db0fc875660a23c8e3b7fde3da92c218223
-updated: 2017-04-17T22:09:05.382168073+02:00
+updated: 2018-04-02T04:29:34.071934+02:00
 imports:
 - name: github.com/codegangsta/cli
-  version: 0bdeddeeb0f650497d603c4ad7b20cfe685682f6
+  version: cfb38830724cc34fedffe9a2a29fb54fa9169cd1
 - name: github.com/jtolds/gls
   version: 9a4a02dbe491bef4bab3c24fd9f3087d6c4c6690
 - name: github.com/smartystreets/assertions
