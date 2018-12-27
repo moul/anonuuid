@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/moul/anonuuid.svg)](https://travis-ci.org/moul/anonuuid)
 [![GoDoc](https://godoc.org/github.com/moul/anonuuid?status.svg)](https://godoc.org/github.com/moul/anonuuid)
 [![Coverage Status](https://coveralls.io/repos/moul/anonuuid/badge.svg?branch=master&service=github)](https://coveralls.io/github/moul/anonuuid?branch=master)
+[![Sourcegraph](https://sourcegraph.com/github.com/moul/anonuuid/-/badge.svg)](https://sourcegraph.com/github.com/moul/anonuuid?badge)
+
 
 :wrench: Anonymize UUIDs outputs (written in Golang)
 
