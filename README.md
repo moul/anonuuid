@@ -4,14 +4,14 @@
 
 ![anonuuid Logo](https://raw.githubusercontent.com/moul/anonuuid/master/assets/anonuuid.png)
 
-[![CircleCI](https://circleci.com/gh/moul/golang-repo-template.svg?style=shield)](https://circleci.com/gh/moul/golang-repo-template)
-[![GoDoc](https://godoc.org/moul.io/golang-repo-template?status.svg)](https://godoc.org/moul.io/golang-repo-template)
-[![License](https://img.shields.io/github/license/moul/golang-repo-template.svg)](https://github.com/moul/golang-repo-template/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/moul/golang-repo-template.svg)](https://github.com/moul/golang-repo-template/releases)
-[![Go Report Card](https://goreportcard.com/badge/moul.io/golang-repo-template)](https://goreportcard.com/report/moul.io/golang-repo-template)
-[![CodeFactor](https://www.codefactor.io/repository/github/moul/golang-repo-template/badge)](https://www.codefactor.io/repository/github/moul/golang-repo-template)
-[![codecov](https://codecov.io/gh/moul/golang-repo-template/branch/master/graph/badge.svg)](https://codecov.io/gh/moul/golang-repo-template)
-[![Docker Metrics](https://images.microbadger.com/badges/image/moul/golang-repo-template.svg)](https://microbadger.com/images/moul/golang-repo-template)
+[![CircleCI](https://circleci.com/gh/moul/anonuuid.svg?style=shield)](https://circleci.com/gh/moul/anonuuid)
+[![GoDoc](https://godoc.org/moul.io/anonuuid?status.svg)](https://godoc.org/moul.io/anonuuid)
+[![License](https://img.shields.io/github/license/moul/anonuuid.svg)](https://github.com/moul/anonuuid/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/moul/anonuuid.svg)](https://github.com/moul/anonuuid/releases)
+[![Go Report Card](https://goreportcard.com/badge/moul.io/anonuuid)](https://goreportcard.com/report/moul.io/anonuuid)
+[![CodeFactor](https://www.codefactor.io/repository/github/moul/anonuuid/badge)](https://www.codefactor.io/repository/github/moul/anonuuid)
+[![codecov](https://codecov.io/gh/moul/anonuuid/branch/master/graph/badge.svg)](https://codecov.io/gh/moul/anonuuid)
+[![Docker Metrics](https://images.microbadger.com/badges/image/moul/anonuuid.svg)](https://microbadger.com/images/moul/anonuuid)
 [![Sourcegraph](https://sourcegraph.com/github.com/moul/anonuuid/-/badge.svg)](https://sourcegraph.com/github.com/moul/anonuuid?badge)
 [![Made by Manfred Touron](https://img.shields.io/badge/made%20by-Manfred%20Touron-blue.svg?style=flat)](https://manfred.life/)
 
@@ -36,7 +36,7 @@ VERSION:
    1.0.0-dev
 
 AUTHOR(S):
-   Manfred Touron <https://github.com/moul>
+   Manfred Touron <https://moul.io/anonuuid>
 
 COMMANDS:
    help, h	Shows a list of commands or help for one command
@@ -145,11 +145,19 @@ $ curl -s https://api.pathwar.net/achievements\?max_results\=2 | anonuuid | jq .
 
 ## Install
 
-Using go
+### Using go
 
-- `go get github.com/moul/anonuuid/...`
+- `go get moul.io/anonuuid/cmd/anonuuid`
+
+### Using brew
+
+- `brew install moul/moul/anonuuid`
+
+### Download release
+
+https://github.com/moul/anonuuid/releases
 
 ## License
 
 © 2015-2019 [Manfred Touron](https://manfred.life) -
-[Apache-2.0 License](https://github.com/moul/golang-repo-template/blob/master/LICENSE)
+[Apache-2.0 License](https://github.com/moul/anonuuid/blob/master/LICENSE)
