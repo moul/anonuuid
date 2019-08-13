@@ -3,11 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"path"
 
-	"github.com/codegangsta/cli"
-	"github.com/moul/anonuuid"
+	"github.com/urfave/cli"
+	"moul.io/anonuuid"
 )
 
 // main is the entrypoint
@@ -15,7 +16,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = path.Base(os.Args[0])
 	app.Author = "Manfred Touron"
-	app.Email = "https://github.com/moul"
+	app.Email = "https://moul.io/anonuuid"
 	app.Version = "1.0.0-dev"
 	app.Usage = "Anonymize UUIDs outputs"
 
@@ -47,7 +48,10 @@ func main() {
 	}
 
 	app.Action = action
-	app.Run(os.Args)
+	if err := app.Run(os.Args); err != nil {
+		log.Printf("error: %v", err)
+		os.Exit(1)
+	}
 }
 
 func action(c *cli.Context) {
