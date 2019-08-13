@@ -149,31 +149,6 @@ Using go
 
 - `go get github.com/moul/anonuuid/...`
 
-## Changelog
-
-### [v1.1.0](https://github.com/moul/anonuuid/releases/tag/v1.1.0) (2018-04-02)
-
-* Switch from `Godep` to `Glide`
-* Add mutex to protect the cache field ([@QuentinPerez](https://github.com/QuentinPerez))
-* Switch from `Party` to `Godep`
-* Support of `--suffix=xxx`, `--keep-beginning` and `--keep-end` options ([#4](https://github.com/moul/anonuuid/issues/4))
-* Using **party** to stabilize vendor package versions ([#8](https://github.com/moul/anonuuid/issues/8))
-* Add homebrew package ([#6](https://github.com/moul/anonuuid/issues/6))
-
-[full commits list](https://github.com/moul/anonuuid/compare/v1.0.0...master)
-
-### [v1.0.0](https://github.com/moul/anonuuid/releases/tag/v1.0.0) (2015-10-07)
-
-**Initial release**
-
-#### Features
-
-* Support of `--hexspeak` option
-* Support of `--random` option
-* Support of `--prefix` option
-* Anonymize input stream
-* Anonymize files
-
 ## License
 
 © 2015-2019 [Manfred Touron](https://manfred.life) -
