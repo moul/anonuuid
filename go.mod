@@ -1,11 +1,8 @@
-module github.com/moul/anonuuid
+module moul.io/anonuuid
 
 require (
-	github.com/codegangsta/cli v1.20.0
-	github.com/debber/debber-v0.3 v0.0.0-20160226200915-cf10fd052975 // indirect
-	github.com/jtolds/gls v0.0.0-20150401064343-9a4a02dbe491
-	github.com/laher/argo v0.0.0-20140722103944-11d91c83cc0f // indirect
-	github.com/laher/goxc v0.18.1 // indirect
-	github.com/smartystreets/assertions v0.0.0-20190330032715-980c5ac6f3ac
-	github.com/smartystreets/goconvey v0.0.0-20190330032715-68dc04aab96a
+	github.com/gopherjs/gopherjs v0.0.0-20190812055157-5d271430af9f // indirect
+	github.com/smartystreets/assertions v1.0.1 // indirect
+	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337
+	github.com/urfave/cli v1.21.0
 )

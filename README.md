@@ -1,19 +1,25 @@
-# AnonUUID
+# anonuuid
 
-[![Build Status](https://travis-ci.org/moul/anonuuid.svg)](https://travis-ci.org/moul/anonuuid)
-[![GoDoc](https://godoc.org/github.com/moul/anonuuid?status.svg)](https://godoc.org/github.com/moul/anonuuid)
-[![Coverage Status](https://coveralls.io/repos/moul/anonuuid/badge.svg?branch=master&service=github)](https://coveralls.io/github/moul/anonuuid?branch=master)
+:wrench: anonymize UUIDs
+
+![anonuuid Logo](https://raw.githubusercontent.com/moul/anonuuid/master/assets/anonuuid.png)
+
+[![CircleCI](https://circleci.com/gh/moul/golang-repo-template.svg?style=shield)](https://circleci.com/gh/moul/golang-repo-template)
+[![GoDoc](https://godoc.org/moul.io/golang-repo-template?status.svg)](https://godoc.org/moul.io/golang-repo-template)
+[![License](https://img.shields.io/github/license/moul/golang-repo-template.svg)](https://github.com/moul/golang-repo-template/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/moul/golang-repo-template.svg)](https://github.com/moul/golang-repo-template/releases)
+[![Go Report Card](https://goreportcard.com/badge/moul.io/golang-repo-template)](https://goreportcard.com/report/moul.io/golang-repo-template)
+[![CodeFactor](https://www.codefactor.io/repository/github/moul/golang-repo-template/badge)](https://www.codefactor.io/repository/github/moul/golang-repo-template)
+[![codecov](https://codecov.io/gh/moul/golang-repo-template/branch/master/graph/badge.svg)](https://codecov.io/gh/moul/golang-repo-template)
+[![Docker Metrics](https://images.microbadger.com/badges/image/moul/golang-repo-template.svg)](https://microbadger.com/images/moul/golang-repo-template)
 [![Sourcegraph](https://sourcegraph.com/github.com/moul/anonuuid/-/badge.svg)](https://sourcegraph.com/github.com/moul/anonuuid?badge)
+[![Made by Manfred Touron](https://img.shields.io/badge/made%20by-Manfred%20Touron-blue.svg?style=flat)](https://manfred.life/)
 
-
-:wrench: Anonymize UUIDs outputs (written in Golang)
-
-![AnonUUID Logo](https://raw.githubusercontent.com/moul/anonuuid/master/assets/anonuuid.png)
 
 **anonuuid** anonymize an input string by replacing all UUIDs by an anonymized
 new one.
 
-The fake UUIDs are cached, so if AnonUUID encounter the same real UUIDs multiple
+The fake UUIDs are cached, so if `anonuuid` encounter the same real UUIDs multiple
 times, the translation will be the same.
 
 ## Usage
@@ -170,4 +176,5 @@ Using go
 
 ## License
 
-MIT
+© 2015-2019 [Manfred Touron](https://manfred.life) -
+[Apache-2.0 License](https://github.com/moul/golang-repo-template/blob/master/LICENSE)
