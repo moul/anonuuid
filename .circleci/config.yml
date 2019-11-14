@@ -4,7 +4,7 @@ executors:
   golang:
     working_directory: /go/src/moul.io/anonuuid
     docker:
-      - image: circleci/golang:1.12
+      - image: circleci/golang:1.13
     environment:
       GO111MODULE: "on"
       DOCKER_IMAGE: moul/anonuuid
