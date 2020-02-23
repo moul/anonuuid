@@ -7,7 +7,8 @@ import (
 	"regexp"
 	"strings"
 	"sync"
-	"time"
+
+	"moul.io/srand"
 )
 
 var (
@@ -131,7 +132,7 @@ func New() *AnonUUID {
 }
 
 func init() {
-	rand.Seed(time.Now().UTC().UnixNano())
+	rand.Seed(srand.Fast())
 }
 
 // PrefixUUID returns a prefixed UUID
