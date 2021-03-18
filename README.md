@@ -159,5 +159,5 @@ https://github.com/moul/anonuuid/releases
 
 ## License
 
-© 2015-2019 [Manfred Touron](https://manfred.life) -
+© 2015-2021   [Manfred Touron](https://manfred.life) -
 [Apache-2.0 License](https://github.com/moul/anonuuid/blob/master/LICENSE)
