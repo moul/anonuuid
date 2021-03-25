@@ -6,7 +6,7 @@ require (
 	github.com/smartystreets/assertions v1.0.1 // indirect
 	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337
 	github.com/urfave/cli v1.22.2
-	moul.io/srand v1.3.0
+	moul.io/srand v1.6.1
 )
 
 go 1.11
