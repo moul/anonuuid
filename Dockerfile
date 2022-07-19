@@ -14,7 +14,7 @@ COPY            . ./
 RUN             make install
 
 # minimalist runtime
-FROM alpine:3.13
+FROM alpine:3.16.1
 LABEL           org.label-schema.build-date=$BUILD_DATE \
                 org.label-schema.name="anonuuid" \
                 org.label-schema.description="" \
